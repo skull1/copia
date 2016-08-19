@@ -45,13 +45,15 @@ import java.util.Arrays;
 import java.util.Objects;
 import javax.swing.JLayeredPane;
 import javax.swing.border.TitledBorder;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 
 
 
 public class Finestra {
 	
-	JFrame frame;
+	JFrame frmCercacompagno;
 
 	//public riempi b=new riempi(this);
 	
@@ -99,13 +101,14 @@ public class Finestra {
     };
     
    
-    JList userList = new JList(listModel2);  
+    //JList userList = new JList(listModel2);  
     private JTextField textField;
     private JTextField textField_1;
     private JTextField textField_2;
     private JTextField textField_3;
     private JTextField textField_4;
     private JTextField textField_5;
+    private JTable table;
     
     /*
     userList.addMouseListener(new MouseAdapter() {
@@ -122,11 +125,12 @@ public class Finestra {
     */
     
 	public Finestra() {
-		frame = new JFrame();
+		frmCercacompagno = new JFrame();
+		frmCercacompagno.setTitle("CercaCompagno");
 		
-		frame.setBounds(100, 100, 976, 538);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		frmCercacompagno.setBounds(100, 100, 976, 538);
+		frmCercacompagno.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmCercacompagno.getContentPane().setLayout(null);
 		
 	    /*txtrProva = new JTextArea();
 		txtrProva.setEditable(false);
@@ -193,7 +197,7 @@ public class Finestra {
         
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setBounds(650, 39, 300, 432);
-        frame.getContentPane().add(scrollPane);
+        frmCercacompagno.getContentPane().add(scrollPane);
         
         /*JList<String> list = new JList<String>(listModel) {
             private transient MouseAdapter cbml;
@@ -225,7 +229,7 @@ public class Finestra {
         	}
         });*/
         
-        frame.addMouseListener(new MouseAdapter() {
+        frmCercacompagno.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				if (arg0.getClickCount() == 2) {
@@ -241,27 +245,64 @@ public class Finestra {
         list.setVisibleRowCount(-1);
         
         JLabel lblCentroNotifiche = new JLabel("Centro Notifiche");
-        lblCentroNotifiche.setBounds(650, 11, 87, 14);
-        frame.getContentPane().add(lblCentroNotifiche);
+        lblCentroNotifiche.setBounds(650, 11, 111, 14);
+        frmCercacompagno.getContentPane().add(lblCentroNotifiche);
         
         JScrollPane scrollPane_1 = new JScrollPane();
-        scrollPane_1.setBounds(339, 39, 300, 432);
-        frame.getContentPane().add(scrollPane_1);
+        scrollPane_1.setBounds(269, 39, 370, 432);
+        frmCercacompagno.getContentPane().add(scrollPane_1);
+        
+        table = new JTable();
+        table.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent arg0) {
+        		
+        		JTable table = (JTable)arg0.getSource();
+                if (arg0.getClickCount() == 2) {
+
+        		Finestra window = new Finestra();
+					window.frmCercacompagno.setVisible(true);
+                }
+        	}
+        });
+        scrollPane_1.setViewportView(table);
+        table.setModel(new DefaultTableModel(
+        	new Object[][] {
+        		{"mario", "rossi", "sdgdsf@lal.it", "si", "no"},
+        		{"marco", "ferrar", "adsasd@msn.com", "no", "si"},
+        		{null, "", null, null, null},
+        		{null, null, null, null, null},
+        		{null, null, null, null, null},
+        	},
+        	new String[] {
+        		"Nome", "Cognome", "Email", "Disponibile", "Online"
+        	}
+        ) {
+        	boolean[] columnEditables = new boolean[] {
+        		false, false, false, false, false
+        	};
+        	public boolean isCellEditable(int row, int column) {
+        		return columnEditables[column];
+        	}
+        });
+        table.getColumnModel().getColumn(2).setPreferredWidth(117);
+        table.getColumnModel().getColumn(3).setPreferredWidth(61);
+        table.getColumnModel().getColumn(4).setPreferredWidth(47);
         
         
-        scrollPane_1.setViewportView(userList);
+        /*scrollPane_1.setViewportView(userList);
         userList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         userList.setLayoutOrientation(JList.VERTICAL);
-        userList.setVisibleRowCount(-1);
+        userList.setVisibleRowCount(-1);*/
         
         JLabel lblUserlist = new JLabel("UserList");
-        lblUserlist.setBounds(339, 11, 102, 14);
-        frame.getContentPane().add(lblUserlist);
+        lblUserlist.setBounds(269, 11, 102, 14);
+        frmCercacompagno.getContentPane().add(lblUserlist);
         
         JLayeredPane layeredPane = new JLayeredPane();
         layeredPane.setBorder(new TitledBorder(null, "Info", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-        layeredPane.setBounds(20, 30, 284, 432);
-        frame.getContentPane().add(layeredPane);
+        layeredPane.setBounds(20, 30, 239, 441);
+        frmCercacompagno.getContentPane().add(layeredPane);
         
         textField = new JTextField();
         textField.setBounds(120, 39, 86, 20);

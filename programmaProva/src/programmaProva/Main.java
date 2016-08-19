@@ -20,7 +20,7 @@ public class Main {
                         	
                   
                   					Finestra window = new Finestra();
-                  					window.frame.setVisible(true);
+                  					window.frmCercacompagno.setVisible(true);
                   			riempi b=new riempi(window);
                   			b.riempi(window);
                   			
