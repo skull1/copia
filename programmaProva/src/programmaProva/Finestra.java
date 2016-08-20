@@ -47,6 +47,8 @@ import javax.swing.JLayeredPane;
 import javax.swing.border.TitledBorder;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 
 
@@ -126,6 +128,17 @@ public class Finestra {
     
 	public Finestra() {
 		frmCercacompagno = new JFrame();
+		frmCercacompagno.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				if (e.getKeyCode()==KeyEvent.VK_ENTER){
+			        System.out.println("Hello");
+
+			       
+			    }
+			}
+		});
+		
 		frmCercacompagno.setTitle("CercaCompagno");
 		
 		frmCercacompagno.setBounds(100, 100, 976, 538);

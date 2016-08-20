@@ -48,11 +48,46 @@ public class LoginDialog extends JDialog {
         panel.add(pfPassword, cs);
         panel.setBorder(new LineBorder(Color.GRAY));
  
+        pfPassword.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent eg) {
+				//System.out.println(eg.getKeyCode());
+				if (eg.getKeyCode()== KeyEvent.VK_ENTER){
+			        //System.out.println("Hello");
+					if (Login.authenticate(getUsername(), getPassword())) {
+	                	
+	                	
+	                    JOptionPane.showMessageDialog(LoginDialog.this,
+	                            "Account " + getUsername() + " loggato con successo.",
+	                            "Login",
+	                            JOptionPane.INFORMATION_MESSAGE);
+	                    succeeded = true;
+	                    dispose();
+	                } else {
+	                    JOptionPane.showMessageDialog(LoginDialog.this,
+	                            "Invalid username or password",
+	                            "Login",
+	                            JOptionPane.ERROR_MESSAGE);
+	                    // reset username and password
+	                    tfUsername.setText("");
+	                    pfPassword.setText("");
+	                    succeeded = false;
+	 
+	                }
+
+			       
+			    }
+			}
+		});
+        
         btnLogin = new JButton("Login");
  
         btnLogin.addActionListener(new ActionListener() {
  
+        	
+        	
             public void actionPerformed(ActionEvent e) { 
+            	
                 if (Login.authenticate(getUsername(), getPassword())) {
                 	
                 	
